@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="file.js"></script>
+    <title>Table Data</title>
+  </head>
+
+  <body onload="Planet(0)">
+    <div>
+        <button
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Search Climate
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <input
+            id="inputText"
+            type="text"
+            class="dropdown-item"
+            placeholder="input"
+          />
+          <center>
+            <button class="btn btn-primary" onclick="Planet(1)">
+              Search
+            </button>
+          </center>
+          <button class="btn btn-light" onclick="Planet(0)">
+              BACK
+          </button>
+        </div>
+      </span>
+    </div>
+    <div><table class="table" id="data"></table></div>
+    <div>
+      <button class="btn btn-success" onclick="Planet(0)">back</button>
+    </div>
+  </body>
+  <script>
+    var planet = data.results;
+    var list = document.getElementById("data");
+
+    var formatter = new Intl.NumberFormat("en-US", {
+      style: "decimal"
+    });
+    
+    function Planet(type) {
+      var nilai = document.getElementById("inputNumber");
+      var text = document.getElementById("inputText");
+      list.innerHTML =
+        "<tr>" +
+        "<th>Name</th><th>Rotation Period</th><th>Orbital Period</th>" +
+        "<th>Diameter</th><th>Climate</th><th>Gravity</th><th>Terrain</th>" + 
+        "<th>Surface Water</th><th>Population</th>" +
+        "</tr>";
+      if (type == 0) {
+        Object.keys(planet).forEach(function(key) {
+          list.innerHTML =
+            list.innerHTML +
+            "<tr>" +
+            "<td>" +
+            planet[key].name +
+            "</td>" +
+            "<td>" +
+            planet[key].rotation_period +
+            "</td>" +
+            "<td>" +
+            planet[key].orbital_period +
+            "</td>" +
+            "<td>" +
+            planet[key].surface_water +
+            "</td>" +
+            "<td>" +
+            planet[key].climate +
+            "</td>" +
+            "<td>" +
+            planet[key].gravity +
+            "</td>" +
+            "<td>" +
+            planet[key].terrain +
+            "</td>" +
+            "<td>" +
+            formatter.format(planet[key].population) +
+            "</td>" +
+            "<td>" +
+            formatter.format(planet[key].diameter) +
+            "</td>" +
+            "</tr>";
+        });
+      }
+
+      if (type == 1) {
+        Object.keys(planet).forEach(function(key) {
+          var climate = planet[key].climate;
+          if (climate.includes(text.value)) {
+            list.innerHTML =
+              list.innerHTML +
+              "<tr>" +
+              "<td>" +
+              planet[key].name +
+              "</td>" +
+              "<td>" +
+              planet[key].rotation_period +
+              "</td>" +
+              "<td>" +
+              planet[key].orbital_period +
+              "</td>" +
+              "<td>" +
+              planet[key].surface_water +
+              "</td>" +
+              "<td>" +
+              planet[key].climate +
+              "</td>" +
+              "<td>" +
+              planet[key].gravity +
+              "</td>" +
+              "<td>" +
+              planet[key].terrain +
+              "</td>" +
+              "<td>" +
+              formatter.format(planet[key].population) +
+              "</td>" +
+              "<td>" +
+              formatter.format(planet[key].diameter) +
+              "</td>" +
+              "</tr>";
+          }
+        });
+      }
+    }
+  </script>
+</html>
